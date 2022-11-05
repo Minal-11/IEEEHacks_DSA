@@ -1,0 +1,78 @@
+----------------------BFS------------
+Breadth-first search is a graph traversal algorithm that starts traversing the graph from the root node and explores all the neighboring nodes. There are many ways to traverse the graph, but among them, BFS is the most commonly used approach. While using BFS for traversal, any node in the graph can be considered as the root node.
+
+When to use this algorithm?
+o	BFS is used to determine the shortest path and minimum spanning tree.
+o	BFS can be used to find the neighboring locations from a given source location.
+Note * A standard BFS implementation puts each vertex of the graph into one of two categories:
+1.	Visited
+2.	Not Visited
+Working of algorithm 
+Approach : 
+-> We need to have this before proceeding :
+1.	Queue Data structure 
+2.	Visited Array – An array with all values initialised with 0.
+-> We will push the 1st node into the queue data structure and mark it as visited. After this, we will find its adjacent nodes. If we get some unvisited node, we will simply push this adjacent node into the queue data structure
+-> Now since the work of the 1st node is done, we will pop out this node from the queue. Now, this process goes on until the queue is not empty.
+
+<CODE>
+import java.util.*;
+class Solution {
+    public static ArrayList < Integer > bfsOfGraph(int V, ArrayList < ArrayList < Integer >> adj) {
+
+        ArrayList < Integer > bfs = new ArrayList < > ();
+        boolean vis[] = new boolean[V];
+        Queue < Integer > q = new LinkedList < > ();
+        q.add(0);
+        vis[0] = true;
+
+        while (!q.isEmpty()) {
+            Integer node = q.poll();
+            bfs.add(node);
+
+            // Get all adjacent vertices of the dequeued vertex s
+            // If a adjacent has not been visited, then mark it
+            // visited and enqueue it
+            for (Integer it: adj.get(node)) {
+                if (vis[it] == false) {
+                    vis[it] = true;
+                    q.add(it);
+     }
+     }
+     }
+     return bfs;
+
+        // Code here
+    }
+
+    static void printAns(ArrayList < Integer > ans) {
+        for (int i = 0; i < ans.size(); i++) {
+            System.out.print(ans.get(i) + " ");
+        }
+    }
+    public static void main(String args[]) {
+
+        ArrayList < ArrayList < Integer >> adj = new ArrayList < > ();
+        for (int i = 0; i < 5; i++) {
+            adj.add(new ArrayList < > ());
+        }
+        adj.get(0).add(1);
+        adj.get(1).add(0);
+        adj.get(0).add(2);
+        adj.get(2).add(0);
+        adj.get(0).add(3);
+        adj.get(3).add(0);
+        adj.get(2).add(4);
+        adj.get(4).add(2);
+
+        ArrayList < Integer > ans = bfsOfGraph(5, adj);
+        printAns(ans);
+}
+    }
+     output of the above code will be 01234.
+     
+    here the time complexity 
+    o(N+E) Where N is nodes and E is travelling through adjacent nodes
+    
+    reference takeuforward
+
