@@ -1,0 +1,201 @@
+----------------------------------Binary Tree traversals----------------------------------------------
+
+Binary tree
+definition - Binary Tree is defined as a Tree data structure with at most 2 children. Since each element in a binary tree can have only 2 children, we typically name them the left and right child.
+ 
+Binary Tree Representation
+A Binary tree is represented by a pointer to the topmost node of the tree. If the tree is empty, then the value of the root is NULL.
+Binary Tree node contains the following parts:
+1.	Data
+2.	Pointer to left child
+3.	Pointer to right child
+ Type of Binary Tree Traversals:
+ 
+1.	Binary Tree Inorder Traversal
+       In inorder, the order should be
+        left -> root -> right
+  
+
+Recursive Approach: In inorder traversal, the tree is traversed in this way: left, root, right.
+
+The algorithm approach can be stated as:
+•	We first recursively visit the left child and go on till we find a leaf node.
+•	Then we print that node value.
+•	Then we recursively visit the right child.
+•	If we encounter a node pointing to NULL, we simply return to its parent.
+<code>
+
+import java.util.*;
+class Node {
+    int data;
+    Node left, right;
+    Node(int data) {
+        this.data = data;
+        left = null;
+        right = null;
+    }
+}
+class solution {
+
+    static void inOrderTrav(Node curr, ArrayList < Integer > inOrder) {
+        if (curr == null)
+            return;
+
+        inOrderTrav(curr.left, inOrder);
+        inOrder.add(curr.data);
+        inOrderTrav(curr.right, inOrder);
+    }
+        public static void main(String args[]) {
+
+        Node root = new Node(1);
+        root.left = new Node(2);
+        root.right = new Node(3);
+        root.left.left = new Node(4);
+        root.left.right = new Node(5);
+        root.left.right.left = new Node(8);
+        root.right.left = new Node(6);
+        root.right.right = new Node(7);
+        root.right.right.left = new Node(9);
+        root.right.right.right = new Node(10);
+
+        ArrayList < Integer > inOrder = new ArrayList < > ();
+        inOrderTrav(root, inOrder);
+
+        System.out.println("The inOrder Traversal is : ");
+        for (int i = 0; i < inOrder.size(); i++) {
+            System.out.print(inOrder.get(i) + " ");
+        }
+    }
+}
+
+ Output : The inOrder Traversal is : 4 2 8 5 1 6 3 9 7 10 
+ 
+t.c-Time Complexity: O(N)[Reason: We are traversing N nodes and every node is visited exactly once].
+ 
+ 2. Binary Tree Preorder Traversal
+    preorder should be: Root->left->right
+ 
+Intuition: In preorder traversal, the tree is traversed in this way: root, left, right. When we visit a node, we print its value, and then we want to visit the left child followed by the right child. 
+
+Recursive Approach: In preorder traversal, the tree is traversed in this way: root, left, right.
+
+The algorithm approach can be stated as:
+•	We first visit the root node and before visiting its children we print its value.
+•	After this, we recursively visit its left child.
+•	Then we recursively visit the right child.
+•	If we encounter a node pointing to NULL, we simply return to its parent.
+
+<code>
+import java.util.*;
+class Node {
+    int data;
+    Node left, right;
+    Node(int data) {
+        this.data = data;
+        left = null;
+        right = null;
+    }
+    Node() {
+
+    }
+}
+
+public class solution {
+    static void preOrderTrav(Node curr, ArrayList < Integer > preOrder) {
+        if (curr == null)
+            return;
+
+        preOrder.add(curr.data);
+        preOrderTrav(curr.left, preOrder);
+        preOrderTrav(curr.right, preOrder);
+    }
+
+    public static void main(String args[]) {
+
+        Node root = new Node(1);
+        root.left = new Node(2);
+        root.right = new Node(3);
+        root.left.left = new Node(4);
+        root.left.right = new Node(5);
+        root.left.right.left = new Node(8);
+        root.right.left = new Node(6);
+        root.right.right = new Node(7);
+        root.right.right.left = new Node(9);
+        root.right.right.right = new Node(10);
+
+        ArrayList < Integer > preOrder = new ArrayList < > ();
+        preOrderTrav(root, preOrder);
+
+        System.out.print("The preOrder Traversal is : ");
+        for (int i = 0; i < preOrder.size(); i++) {
+            System.out.print(preOrder.get(i) + " ");
+        }
+
+    }
+}
+
+Output:
+The preOrder Traversal is : 1 2 4 5 8 3 6 7 9 10 
+
+t.c-Time Complexity: O(N)[Reason: We are traversing N nodes and every node is visited exactly once].
+
+3. Binary Tree Postorder Traversal
+Postorder should be : left-> right->  root
+ 
+Recursive Approach: In postorder traversal, the tree is traversed in this way: left, right, root.
+
+The algorithm approach can be stated as:
+•	We first recursively visit the left child and go on left till we find a node pointing to NULL.
+•	Then we return to its parent.
+•	Then we recursively visit the right child.
+•	After we have returned from the right child as well, only then will we print the  current node value.
+
+<code>
+import java.util.*;
+class Node {
+    int data;
+    Node left, right;
+    Node(int data) {
+        this.data = data;
+        left = null;
+        right = null;
+    }
+}
+public class solution {
+    static void postOrderTrav(Node curr, ArrayList < Integer > postOrder) {
+        if (curr == null)
+            return;
+
+        postOrderTrav(curr.left, postOrder);
+        postOrderTrav(curr.right, postOrder);
+        postOrder.add(curr.data);
+    }
+
+    public static void main(String args[]) {
+
+        Node root = new Node(1);
+        root.left = new Node(2);
+        root.right = new Node(3);
+        root.left.left = new Node(4);
+        root.left.right = new Node(5);
+        root.left.right.left = new Node(8);
+        root.right.left = new Node(6);
+        root.right.right = new Node(7);
+        root.right.right.left = new Node(9);
+        root.right.right.right = new Node(10);
+
+        ArrayList < Integer > postOrder = new ArrayList < > ();
+        postOrderTrav(root, postOrder);
+
+        System.out.println("The postOrder Traversal is : ");
+        for (int i = 0; i < postOrder.size(); i++) {
+            System.out.print(postOrder.get(i) + " ");
+        }
+    }
+}
+Output:
+The postOrder Traversal is : 4 8 5 2 6 9 10 7 3 1 
+
+t.c-Time Complexity: O(N)[Reason: We are traversing N nodes and every node is visited exactly once]
+
+Thank you !
