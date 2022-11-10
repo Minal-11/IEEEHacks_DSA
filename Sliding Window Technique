@@ -1,0 +1,66 @@
+-------------------------------------------------Sliding Window Technique----------------------------------------------------------
+in case of sliding window, instead of traversing the array 1 by 1, we would traverse a block of size K in the first step, and then simply shift the block ahead by one position at each step. You can visualise this as a sliding glass pane of a window frame. That’s why it is called sliding window.
+ 
+For example
+With traversing(without sliding window technique)
+if array = {1,2,3,4,5}
+The traversal sequence will look like 
+the highlighted element at each step:
+
+step 1: {1,2,3,4,5}
+step 2: {1,2,3,4,5}
+step 3: {1,2,3,4,5}
+step 4: {1,2,3,4,5}
+step 5: {1,2,3,4,5}
+
+with sliding window technique
+if array = {1,2,3,4,5}, and K = 2
+The traversal sequence of sliding a 
+window by size 2 would look like:
+
+step 1: {1,2,3,4,5}
+step 2: {1,2,3,4,5}
+step 3: {1,2,3,4,5}
+step 4: {1,2,3,4,5}
+
+benefit of using sliding window technique?
+We can easily see the difference from above mentioned example 
+The difference is in the number of steps. In the first example of traditional traversal, there are 5 steps whereas in the second one, we just have 4 steps.
+sliding window techniques helps us to remove using nested loop by replacing it with a single loop, there by dramatically reducing the time complexity.
+
+Overview:
+Sliding Window Technique is a popular method in algorithmic problems because of its high efficiency (mostly linear)
+Sample Problem: Longest Substring Without Repeating Characters.Given a string s, find the length of the longest substring without repeating characters.
+
+Algorithm
+1.	Use a hashMap to keep track of the latest index of each letter
+2.	Keeping the left pointer at rest, move the right pointer by 1 letter at a time.
+3.	When a repeating character is encountered, update the maxLength and move the left pointer to max{left pointer, old last occurence of this character as available in the map}. We do a max because we don't want to take the left pointer backwards at any time (e.g. in "abba"), it will only move forward or stay still.
+4.	return max {right-left, maxLength}. Doing this outside the loop is essential as it handles strings with all unique chars.
+
+<code>
+
+Class solution{
+public int lengthOfLongestSubstring(String s) {
+	if (s.length() < 2)
+		return s.length();
+	var left = 0;
+	var right = 0;
+	var maxLength = 0;
+	var map = new HashMap<Character, Integer>();
+
+	while (right < s.length()) {
+		var ch = s.charAt(right);
+		
+		if (map.containsKey(ch)) {
+			maxLength = Math.max(maxLength, right - left);
+			left = Math.max(left, map.get(ch) + 1);
+		}
+		
+		map.put(ch, right++);
+	}
+	return Math.max(maxLength, right - left);
+}
+}
+hope you liked it!
+t-c-time complexity O(n)/O(a), where n = s.length, a = size of character set
