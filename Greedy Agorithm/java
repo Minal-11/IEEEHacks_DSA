@@ -1,0 +1,60 @@
+------------------------------------------GREEDY ALGORITHM----------------------------------------
+Greedy algorithm
+A Greedy algorithm is an approach to solving a problem that selects the most appropriate option based on the current situation. So the problems where choosing locally optimal also leads to global solution are the best fit for Greedy. This simple, intuitive algorithm can be applied to solve any optimization problem which requires the maximum or minimum optimum result. The best thing about this algorithm is that it is easy to understand and implement.
+
+Steps for Creating a Greedy Algorithm
+Follow these steps to conclude the a greedy solution for the given problem statement:
+1.	Divide the problem into subproblems, including one small problem and the remaining subproblem.
+2.	Determine the optimal substructure of the problems (formulating a recurrence function).
+3.	Show that if we make the greedy choice, then only one subproblem remains.
+4.	Validate the rightness of the greedy choice.
+5.	Write either a recursive or an iterative implementation.
+
+Limitations of Greedy Algorithm
+1.	The greedy algorithm makes judgments based on the information at each iteration without considering the broader problem; hence it does not produce the best answer for every problem.
+1.	Optimization problems (Dijkstra’s Algorithm) with negative graph edges cannot be solved using a greedy algorithm.
+
+Applications of Greedy Algorithm
+•	Used to Solve Optimization Problems: Graph - Map Coloring, Graph - Vertex Cover, Knapsack Problem, Job Scheduling Problem, and activity selection problem are classic optimization problems solved using a greedy algorithmic paradigm.
+Let us understand with sample problem
+Problem Statement: Given a value V, if we want to make a change for V Rs, and we have an infinite supply of each of the denominations in Indian currency, i.e., we have an infinite supply of { 1, 2, 5, 10, 20, 50, 100, 500, 1000} valued coins/notes, what is the minimum number of coins and/or notes needed to make the change.
+Example 1:
+Input: V = 70
+Output: 2
+Explaination: We need a 50 Rs note and a 20 Rs note.
+
+Approach: We will keep a pointer at the end of the array i. Now while(V >= coins[i]) we will reduce V by coins[i] and add it to the ans array.
+We will also ignore the coins which are greater than V and the coins which are less than V. We consider them and reduce the value of V by coins[I]
+
+<Code>
+import java.util.*;
+public class Main {
+  public static void main(String[] args) {
+
+    int V = 49;
+    ArrayList < Integer > ans = new ArrayList < > ();
+    int coins[] = {1, 2, 5, 10, 20, 50, 100, 500, 1000};
+    int n = coins.length;
+    for (int i = n - 1; i >= 0; i--) {
+      while (V >= coins[i]) {
+        V -= coins[i];
+        ans.add(coins[i]);
+      }
+    }
+    System.out.println("The minimum number of coins is "+ans.size());
+    System.out.println("The coins are ");
+    for (int i = 0; i < ans.size(); i++) {
+      System.out.print(" " + ans.get(i));
+    }
+  }
+}
+
+Output:
+The minimum number of coins is 5
+The coins are
+20 20 5 2 2
+
+t.c-Time Complexity:O(V)where v is no.of coin
+Space Complexity:O(1)
+
+Hope you liked it!
